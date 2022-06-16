@@ -79,17 +79,17 @@ pipeline {
     }
    
    
-   stage ('Build') {
-      steps {
-      sh 'mvn clean package'
-     }
-    }
+   //stage ('Build') {
+     // steps {
+     // sh 'mvn clean package'
+     //}
+   // }
  
 
     stage ('Deploy') {
      steps {
-            sh 'chmod +777  /var/lib/jenkins/workspace/DevDemo/WebGoatPipeline'
-            sh 'sudo cp -r /var/lib/jenkins/workspace/DevDemo/WebGoatPipeline /var/www/html' 
+            sh 'chmod +777  /var/lib/jenkins/workspace/WebGoatPipeline'
+            sh 'sudo cp -r /var/lib/jenkins/workspace/WebGoatPipeline /var/www/html' 
             //sh 'chmod +777 /var/lib/jenkins/workspace/CICD/target/WebApp'
             //sh 'ls /var/www/html'
             //sh 'sudo cp -r /var/lib/jenkins/OWASP-Dependency-Check/reports /var/www/html'
