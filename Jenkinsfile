@@ -88,8 +88,8 @@ pipeline {
 
     stage ('Deploy') {
      steps {
-            sh 'chmod +777 /var/lib/jenkins/workspace/DevDemo'
-            sh 'sudo cp -r /var/lib/jenkins/workspace/DevDemo /var/www/html' 
+            sh 'chmod +777  /var/lib/jenkins/workspace/DevDemo/WebGoatPipeline'
+            sh 'sudo cp -r /var/lib/jenkins/workspace/DevDemo/WebGoatPipeline /var/www/html' 
             //sh 'chmod +777 /var/lib/jenkins/workspace/CICD/target/WebApp'
             //sh 'ls /var/www/html'
             //sh 'sudo cp -r /var/lib/jenkins/OWASP-Dependency-Check/reports /var/www/html'
