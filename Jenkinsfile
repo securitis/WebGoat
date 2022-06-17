@@ -44,7 +44,7 @@ pipeline {
              } 
   stage ('Snyk Jar Scan') {
      steps {
-              snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', severity: 'high', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/SelfCICD --all-projects --scan-all-unmanaged --detection-depth=4'
+              snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', severity: 'high', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/WebGoatPipeline --all-projects --scan-all-unmanaged --detection-depth=4'
              //snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', projectName: 'CICDSelf', severity: 'high', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/SelfCICD'
              //snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', projectName: 'CICDSelf', severity: 'high', snykInstallation: 'sny', snykTokenId: 'snykid', targetFile: '/var/lib/jenkins/workspace/SelfCICD'
              //sh 'snykSecurity failOnError: false, failOnIssues: false, organisation: 'self', projectName: 'CICDSelf', severity: 'high', snykTokenId: 'snykid', targetFile: '/var/lib/jenkins/workspace/SelfCICD''     
@@ -57,7 +57,7 @@ pipeline {
     
   stage ('Snyk Dependency Scan') {
      steps {
-          snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/SelfCICD --all-projects --detection-depth=4'   
+          snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/WebGoatPipeline --all-projects --detection-depth=4'   
        //snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', severity: 'high', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/SelfCICD --all-projects --detection-depth=4'
              //snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', projectName: 'CICDSelf', severity: 'high', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/SelfCICD'
              //snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', projectName: 'CICDSelf', severity: 'high', snykInstallation: 'sny', snykTokenId: 'snykid', targetFile: '/var/lib/jenkins/workspace/SelfCICD'
@@ -69,7 +69,7 @@ pipeline {
       
   stage ('Snyk SAST Scan') {
      steps {
-             snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/SelfCICD --code'
+             snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/WebGoatPipeline --code'
              //snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', projectName: 'CICDSelf', severity: 'high', snykInstallation: 'snyk', snykTokenId: 'snykid', additionalArguments: '--target-dir=/var/lib/jenkins/workspace/SelfCICD'
              //snykSecurity failOnError: false, failOnIssues: false, organisation: 'securitis', projectName: 'CICDSelf', severity: 'high', snykInstallation: 'sny', snykTokenId: 'snykid', targetFile: '/var/lib/jenkins/workspace/SelfCICD'
              //sh 'snykSecurity failOnError: false, failOnIssues: false, organisation: 'self', projectName: 'CICDSelf', severity: 'high', snykTokenId: 'snykid', targetFile: '/var/lib/jenkins/workspace/SelfCICD''     
