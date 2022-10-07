@@ -29,7 +29,7 @@ pipeline {
 
     stage ('SAST - ASOC') {
      steps {
-            appscan application: 'f5883107-a93c-4ebe-830c-bc5d0d74a598', credentials: 'PersonalASOC', name: 'WebgoatScan', scanner: static_analyzer(hasOptions: false, target: 'https://github.com/securitis/WebGoat.git'), type: 'Static Analyzer'
+           appscan application: 'f5883107-a93c-4ebe-830c-bc5d0d74a598', credentials: 'PersonalASOC', name: 'DemoASOC', scanner: static_analyzer(hasOptions: false, target: '/var/lib/jenkins/workspace/DemoGoat'), type: 'Static Analyzer'
        }
     }
      
