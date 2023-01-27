@@ -5,7 +5,7 @@ pipeline {
   tools {
     maven 'maven'
   }
-        
+               
   environment {
     Snyk = 'Snyk'
     Trivy = 'Trivy'
