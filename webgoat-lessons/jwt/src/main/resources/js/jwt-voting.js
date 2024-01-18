@@ -42,24 +42,19 @@ function getVotings() {
     $("#votesList").empty();
     $.get("JWT/votings", function (result, status) {
         for (var i = 0; i < result.length; i++) {
-            var voteTemplate = html.replace('IMAGE_SMALL', result[i].imageSmall);
+            var voteTemplate = $(html);
+            voteTemplate.find('.media-object').attr('src', result[i].imageSmall);
             if (i === 0) {
-                voteTemplate = voteTemplate.replace('ACTIVE', 'active');
-                voteTemplate = voteTemplate.replace('BUTTON', 'btn-default');
+                voteTemplate.addClass('active');
+                voteTemplate.find('.btn').removeClass('btn-primary').addClass('btn-default');
             } else {
-                voteTemplate = voteTemplate.replace('ACTIVE', '');
-                voteTemplate = voteTemplate.replace('BUTTON', 'btn-primary');
+                voteTemplate.removeClass('active');
+                voteTemplate.find('.btn').removeClass('btn-default').addClass('btn-primary');
             }
-            voteTemplate = voteTemplate.replace(/TITLE/g, result[i].title);
-            voteTemplate = voteTemplate.replace('INFORMATION', result[i].information || '');
-            voteTemplate = voteTemplate.replace('NO_VOTES', result[i].numberOfVotes || '');
-            voteTemplate = voteTemplate.replace('AVERAGE', result[i].average || '');
-
-            var hidden = (result[i].numberOfVotes === undefined ? 'hidden' : '');
-            voteTemplate = voteTemplate.replace(/HIDDEN_VIEW_VOTES/g, hidden);
-            hidden = (result[i].average === undefined ? 'hidden' : '');
-            voteTemplate = voteTemplate.replace(/HIDDEN_VIEW_RATING/g, hidden);
-
+            voteTemplate.find('.list-group-item-heading').text(result[i].title);
+            voteTemplate.find('.list-group-item-text').text(result[i].information || '');
+            voteTemplate.find('[HIDDEN_VIEW_VOTES]').text(result[i].numberOfVotes || '').removeAttr('hidden');
+            voteTemplate.find('[HIDDEN_VIEW_RATING]').text('Average ' + (result[i].average || '') + ' / 4').removeAttr('hidden');
             $("#votesList").append(voteTemplate);
         }
     })
