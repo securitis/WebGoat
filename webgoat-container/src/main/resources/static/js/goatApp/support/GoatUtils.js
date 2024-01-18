@@ -54,7 +54,8 @@ define(['jquery',
  
                 showLessonCookiesAndParams: function() {
                     $.get(goatConstants.cookieService, {}, function(reply) {
-                        $("#lesson_cookies").html(reply);
+                        var sanitizedReply = $('<div>').text(reply).html();
+                        $("#lesson_cookies").html(sanitizedReply);
                     }, "html");
                 },
  
