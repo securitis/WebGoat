@@ -7,15 +7,15 @@ function loadVotes() {
     $.get("challenge/8/votes/", function (votes) {
             var totalVotes = 0;
             for (var i = 1; i <= 5; i++) {
-                totalVotes = totalVotes + votes[i];
+                totalVotes = totalVotes + parseInt(votes[i]);
             }
             console.log(totalVotes);
             for (var i = 1; i <= 5; i++) {
-                var percent = votes[i] * 100 / totalVotes;
+                var percent = parseInt(votes[i]) * 100 / totalVotes;
                 console.log(percent);
                 var progressBar = $('#progressBar' + i);
                 progressBar.width(Math.round(percent) * 2 + '%');
-                $("#nrOfVotes" + i).html(votes[i]);
+                $("#nrOfVotes" + i).text(votes[i]);
 
             }
         }
