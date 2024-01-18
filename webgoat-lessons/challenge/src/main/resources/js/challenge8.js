@@ -44,12 +44,13 @@ function average() {
 function doVote(stars) {
     $("#voteResultMsg").hide();
     $.get("challenge/8/vote/" + stars, function (result) {
-        if (result["error"]) {
+        if (result && result["error"]) {
             $("#voteResultMsg").addClass('alert-danger alert-dismissable');
         } else {
             $("#voteResultMsg").addClass('alert-success alert-dismissable');
         }
-        $("#voteResultMsg").html(result["message"]);
+        var message = result["message"];
+        $("#voteResultMsg").html($("<div>").text(message).html());
         $("#voteResultMsg").show();
     })
     loadVotes();
