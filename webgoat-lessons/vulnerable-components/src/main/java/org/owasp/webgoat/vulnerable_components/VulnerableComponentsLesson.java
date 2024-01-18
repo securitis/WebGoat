@@ -38,7 +38,7 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
 
     @PostMapping("/VulnerableComponents/attack1")
     public @ResponseBody
-    AttackResult completed(@RequestParam String payload) {
+    AttackResult completed(@RequestParam(required = false) String payload) {
         XStream xstream = new XStream();
         xstream.setClassLoader(Contact.class.getClassLoader());
         xstream.alias("contact", ContactImpl.class);
@@ -46,10 +46,9 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
         Contact contact = null;
         
         try {
-        	if (!StringUtils.isEmpty(payload)) {
-        		payload = payload.replace("+", "").replace("\r", "").replace("\n", "").replace("> ", ">").replace(" <", "<");
-        	}
-            contact = (Contact) xstream.fromXML(payload);
+            if (!StringUtils.isEmpty(payload)) {
+                contact = (Contact) xstream.fromXML(payload);
+            }
         } catch (Exception ex) {
             return failed(this).feedback("vulnerable-components.close").output(ex.getMessage()).build();
         }
@@ -62,7 +61,7 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
             	return success(this).feedback("vulnerable-components.success").build();
             }
         } catch (Exception e) {
-        	return success(this).feedback("vulnerable-components.success").output(e.getMessage()).build();
+            return success(this).feedback("vulnerable-components.success").build();
         }
         return failed(this).feedback("vulnerable-components.fromXML").feedbackArgs(contact).build();
     }
