@@ -29,7 +29,7 @@ function ajaxFunction(userId) {
             html = html + '<td>' + result[i].FirstName + '</td>';
             html = html + '<td>' + result[i].LastName + '</td>';
             html = html + '<td>' + result[i].SSN + '</td>';
-            html = html + '<td>' + result[i].Salary + '</td>';
+            html = html + '<td>' + $.text(result[i].Salary) + '</td>';
             html = html + '</tr>';
         }
         html = html + '</tr></table>';
