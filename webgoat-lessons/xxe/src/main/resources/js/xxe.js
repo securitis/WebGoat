@@ -55,27 +55,33 @@ $(document).ready(function () {
 
 
 
-var html = '<li class="comment">' +
-    '<div class="pull-left">' +
-    '<img class="avatar" src="images/avatar1.png" alt="avatar"/>' +
-    '</div>' +
-    '<div class="comment-body">' +
-    '<div class="comment-heading">' +
-    '<h4 class="user">USER</h4>' +
-    '<h5 class="time">DATETIME</h5>' +
-    '</div>' +
-    '<p>COMMENT</p>' +
-    '</div>' +
-    '</li>';
-
 function getComments(field) {
-    $.get("xxe/comments", function (result, status) {
-        $(field).empty();
-        for (var i = 0; i < result.length; i++) {
-            var comment = html.replace('USER', result[i].user);
-            comment = comment.replace('DATETIME', result[i].dateTime);
-            comment = comment.replace('COMMENT', result[i].text);
-            $(field).append(comment);
+    $.ajax({
+        url: 'xxe/comments',
+        type: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        success: function (result, status) {
+            $(field).empty();
+            for (var i = 0; i < result.length; i++) {
+                var comment = $('<li>').addClass('comment');
+                var div1 = $('<div>').addClass('pull-left');
+                var img = $('<img>').addClass('avatar').attr('src', 'images/avatar1.png').attr('alt', 'avatar');
+                div1.append(img);
+                comment.append(div1);
+                var div2 = $('<div>').addClass('comment-body');
+                var div3 = $('<div>').addClass('comment-heading');
+                var h4 = $('<h4>').addClass('user').text(result[i].user);
+                var h5 = $('<h5>').addClass('time').text(result[i].dateTime);
+                div3.append(h4);
+                div3.append(h5);
+                div2.append(div3);
+                var p = $('<p>').text(result[i].text);
+                div2.append(p);
+                comment.append(div2);
+                $(field).append(comment);
+            }
         }
 
     });
