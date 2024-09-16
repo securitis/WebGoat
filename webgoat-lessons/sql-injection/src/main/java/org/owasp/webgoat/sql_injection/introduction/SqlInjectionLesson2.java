@@ -32,9 +32,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import static java.sql.ResultSet.CONCUR_READ_ONLY;
 import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
@@ -58,8 +58,9 @@ public class SqlInjectionLesson2 extends AssignmentEndpoint {
 
     protected AttackResult injectableQuery(String query) {
         try (var connection = dataSource.getConnection()) {
-            Statement statement = connection.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
-            ResultSet results = statement.executeQuery(query);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees WHERE department = ?", TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
+            statement.setString(1, query);
+            ResultSet results = statement.executeQuery();
             StringBuffer output = new StringBuffer();
 
             results.first();

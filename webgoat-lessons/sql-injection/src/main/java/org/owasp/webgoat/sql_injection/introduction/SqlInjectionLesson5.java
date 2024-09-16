@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -68,8 +69,9 @@ public class SqlInjectionLesson5 extends AssignmentEndpoint {
 
     protected AttackResult injectableQuery(String query) {
         try (Connection connection = dataSource.getConnection()) {
-            try (Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
-                statement.executeQuery(query);
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE username = ?")) {
+                statement.setString(1, query);
+                ResultSet resultSet = statement.executeQuery();
                 if (checkSolution(connection)) {
                     return success(this).build();
                 }

@@ -33,9 +33,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import static java.sql.ResultSet.CONCUR_READ_ONLY;
 import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
@@ -59,11 +59,9 @@ public class SqlInjectionLesson3 extends AssignmentEndpoint {
 
     protected AttackResult injectableQuery(String query) {
         try (Connection connection = dataSource.getConnection()) {
-            try (Statement statement = connection.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY)) {
-                Statement checkStatement = connection.createStatement(TYPE_SCROLL_INSENSITIVE,
-                        CONCUR_READ_ONLY);
-                statement.executeUpdate(query);
-                ResultSet results = checkStatement.executeQuery("SELECT * FROM employees WHERE last_name='Barnett';");
+            try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees WHERE last_name=?")) {
+                statement.setString(1, query);
+                ResultSet results = statement.executeQuery();
                 StringBuffer output = new StringBuffer();
                 // user completes lesson if the department of Tobi Barnett now is 'Sales'
                 results.first();
